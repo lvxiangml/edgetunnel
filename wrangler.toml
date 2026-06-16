@@ -6,6 +6,7 @@ keep_vars = true
 
 [vars]
 PROXYIP = "proxyip.cmliussss.net:443"
+DEBUG = "true"
 
 [[kv_namespaces]]
 binding = "KV"
