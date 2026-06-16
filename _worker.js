@@ -38,7 +38,11 @@ export default {
 			const proxyIPs = await 整理成数组(env.PROXYIP);
 			反代IP = proxyIPs[Math.floor(Math.random() * proxyIPs.length)];
 			启用反代兜底 = false;
-		} else 反代IP = (`${request.cf.colo}.${查杀特征码}.CmLiUsSsS.nEt`).toLowerCase();
+		} else {
+			// 内置备用 ProxyIP
+			const 备用IP = ['104.16.0.0:443', '104.16.1.0:443', '104.16.2.0:443', '1.1.1.1:443', 'proxyip.cmliussss.net:443'];
+			反代IP = 备用IP[Math.floor(Math.random() * 备用IP.length)]; 
+		}
 		const 访问IP = request.headers.get('CF-Connecting-IP') || request.headers.get('True-Client-IP') || request.headers.get('X-Real-IP') || request.headers.get('X-Forwarded-For') || request.headers.get('Fly-Client-IP') || request.headers.get('X-Appengine-Remote-Addr') || request.headers.get('X-Cluster-Client-IP') || '未知IP';
 		if (缓存SOCKS5白名单 === null) {
 			if (env.GO2SOCKS5) SOCKS5白名单 = [...new Set(SOCKS5白名单.concat(await 整理成数组(env.GO2SOCKS5)))];
