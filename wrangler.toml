@@ -1,9 +1,9 @@
 name = "edgetunnel"
 main = "_worker.js"
 compatibility_date = "2025-11-04"
+compatibility_flags = ["nodejs_compat"]
 keep_vars = true
 
 [[kv_namespaces]]
 binding = "KV"
 id = "70578456047b4e7f99779dfb92dada15"
-#重新部署2
