@@ -44,6 +44,17 @@ async function diagConnect(request, env) {
 
 export default {
 	async fetch(request, env, ctx) {
+		// 诊断检查
+		if (new URL(request.url).pathname === '/diag') {
+			try {
+				let r = await fetch('https://1.1.1.1/cdn-cgi/trace');
+				let t = await r.text();
+				return new Response('✅ fetch OK\n\n' + t + '\n\nENV: PROXYIP=' + (env.PROXYIP || '未设置'));
+			} catch(e) {
+				return new Response('❌ fetch ERROR: ' + e.message);
+			}
+		}
+
 		let 请求URL文本 = request.url.replace(/%5[Cc]/g, '').replace(/\\/g, '');
 		const 请求URL锚点索引 = 请求URL文本.indexOf('#');
 		const 请求URL主体部分 = 请求URL锚点索引 === -1 ? 请求URL文本 : 请求URL文本.slice(0, 请求URL锚点索引);
